@@ -1,0 +1,65 @@
+// src/components/NavBar.jsx
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { getProfile } from '../api';
+
+const Navbar = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('access_token');
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    if (token) {
+      getProfile(token)
+        .then(response => setProfile(response.data))
+        .catch(error => console.error('Profil betöltési hiba:', error));
+    }
+  }, [token]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    navigate('/login');
+  };
+
+  return (
+    <nav style={navStyle}>
+      <h1 style={titleStyle}>ConnectMate</h1>
+      <div style={linkContainerStyle}>
+        {token ? (
+          <>
+            <Link to="/profile" style={linkStyle}>Profilom</Link>
+            <Link to="/profile/edit" style={linkStyle}>Profil szerkesztése</Link>
+            <Link to="/search" style={linkStyle}>Keresés</Link>
+            <Link to="/messages" style={linkStyle}>Üzenetek</Link>  {/* 🔥 Üzenetek gomb */}
+            <button onClick={handleLogout} style={buttonStyle}>Kijelentkezés</button>
+            {profile?.profile_picture && (
+              <img src={profile.profile_picture} alt="Profil kép" style={profilePicStyle} />
+            )}
+          </>
+        ) : (
+          <>
+            <Link to="/login" style={linkStyle}>Bejelentkezés</Link>
+            <Link to="/register" style={linkStyle}>Regisztráció</Link>
+          </>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+const navStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '10px 20px',
+  backgroundColor: '#f8f9fa',
+  borderBottom: '1px solid #ddd'
+};
+
+const titleStyle = { margin: 0, fontSize: '24px', color: '#333' };
+const linkContainerStyle = { display: 'flex', alignItems: 'center' };
+const linkStyle = { marginRight: '15px', textDecoration: 'none', color: '#007bff', fontSize: '18px' };
+const buttonStyle = { backgroundColor: '#dc3545', color: '#fff', border: 'none', padding: '8px 15px', borderRadius: '4px', cursor: 'pointer', fontSize: '16px', marginRight: '15px' };
+const profilePicStyle = { width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #007bff' };
+
+export default Navbar;
