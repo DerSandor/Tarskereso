@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 // API alapbeállítások (TÁVOLÍTSD EL a Content-Type fejlécet)
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000/api/',
@@ -39,13 +40,27 @@ api.interceptors.response.use(
 );
 
 // API hívások
-export const loginUser = (email, password) => {
-  return api.post('token/', { email, password }).then(response => {
-    localStorage.setItem('access_token', response.data.access);
-    localStorage.setItem('refresh_token', response.data.refresh);
+export const loginUser = async (email, password) => {
+  try {
+    const response = await axios.post("http://127.0.0.1:8000/api/token/", {
+      email,
+      password,
+    });
+
+    const user = { email };
+
+    // 🔥 Az access tokent `sessionStorage`-ba mentjük, hogy minden lapon külön legyen
+    sessionStorage.setItem("access_token", response.data.access);
+    sessionStorage.setItem("refresh_token", response.data.refresh);
+    sessionStorage.setItem("user", JSON.stringify(user));
+
     return response;
-  });
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
+  }
 };
+
 
 export const getProfile = (token) => {
   return api.get('profiles/me/', {
@@ -108,5 +123,86 @@ export const getUserId = (token, identifier) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const getNextProfile = async () => {
+  let accessToken = localStorage.getItem("access_token");
+
+  if (!accessToken) {
+    console.error("Nincs access token!");
+    return;
+  }
+
+  try {
+    return await api.get("matches/next/", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      try {
+        const refreshResponse = await api.post("token/refresh/", {
+          refresh: localStorage.getItem("refresh_token"),
+        });
+
+        // Új token mentése
+        localStorage.setItem("access_token", refreshResponse.data.access);
+        accessToken = refreshResponse.data.access;
+
+        // Újrapróbálkozás
+        return await api.get("matches/next/", {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+      } catch (refreshError) {
+        console.error("Token frissítési hiba:", refreshError);
+        return;
+      }
+    }
+
+    console.error("Hiba a profilok betöltésekor:", error);
+    throw error;
+  }
+};
+
+export const sendLikeDislike = async (likedUserId, liked) => {
+  let accessToken = localStorage.getItem("access_token");
+
+  if (!accessToken) {
+    console.error("Nincs access token!");
+    return;
+  }
+
+  try {
+    return await api.post(
+      "matches/like/",
+      { liked_user_id: likedUserId, liked },
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      try {
+        const refreshResponse = await api.post("token/refresh/", {
+          refresh: localStorage.getItem("refresh_token"),
+        });
+
+        // Új token mentése
+        localStorage.setItem("access_token", refreshResponse.data.access);
+        accessToken = refreshResponse.data.access;
+
+        // Újrapróbálkozás
+        return await api.post(
+          "matches/like/",
+          { liked_user_id: likedUserId, liked },
+          { headers: { Authorization: `Bearer ${accessToken}` } }
+        );
+      } catch (refreshError) {
+        console.error("Token frissítési hiba:", refreshError);
+        return;
+      }
+    }
+
+    console.error("Hiba a like/dislike küldése közben:", error);
+    throw error;
+  }
+};
+
 
 

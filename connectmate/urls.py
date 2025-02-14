@@ -17,6 +17,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # 🔥 Token frissítés útvonal
     path('api/messages/', include('messaging.urls')),  # Üzenetküldési API hozzáadása
     path('', home_view),  # 🔥 Most már definiált home_view nézetet használunk!
+    path('api/matches/', include('matches.urls')),
     
 ]
 

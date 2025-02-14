@@ -24,6 +24,12 @@ const Profile = () => {
           <Link to="/profile/change-password">
             <button>Jelszó megváltoztatása</button>
           </Link>
+          {/* 🔥 Hozzáadjuk a gombot a Swipe oldalhoz */}
+          <Link to="/swipe">
+            <button style={{ padding: "10px 20px", backgroundColor: "blue", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}>
+              Profilok böngészése
+            </button>
+          </Link>
         </div>
       ) : (
         <p>Betöltés...</p>
