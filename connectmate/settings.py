@@ -11,76 +11,122 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ⚠ FONTOS: Titkos kulcs elrejtése környezeti változóban
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-*o%a7lkye+armp6zvw-^y3tx!l*p1!-2+=#g=4)^=@%of4#q*!")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*o%a7lkye+armp6zvw-^y3tx!l*p1!-2+=#g=4)^=@%of4#q*!'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+
 
 #Új sorok
+# ✅ Django REST keretrendszer konfiguráció
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    ),
+    )
 }
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-import os
-
+# ✅ Media fájlok kezelése
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# ✅ CORS beállítások (React frontend támogatása)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
 
-# Email konfiguráció (pl. Gmail SMTP szerver)
-# Fejlesztési környezetben az email a konzolra kerül
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'admin@example.com'
+CORS_ALLOW_CREDENTIALS = True
 
+# ✅ WebSocket támogatás és Redis beállítás
+ASGI_APPLICATION = "connectmate.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+# ✅ Email küldés beállítások
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'YOUR_EMAIL@gmail.com'  # Cseréld le a saját email címedre
-EMAIL_HOST_PASSWORD = 'YOUR_APP_PASSWORD'  # Gmail alkalmazásjelszó (nem a rendes jelszó)
+EMAIL_HOST_USER = os.getenv("EMAIL_USER", "YOUR_EMAIL@gmail.com")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD", "YOUR_APP_PASSWORD")
 
+# ✅ Caching (Redis gyorsítótár)
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+# Logging beállítások optimalizálása
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+            'level': 'WARNING',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+        'messaging': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    },
+}
 
 # Application definition
 
+# ✅ Telepített alkalmazások
 INSTALLED_APPS = [
+    'daphne',  # Ennek kell lennie az első helyen
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles', # 🔥 Csak a daphne után jöhet!
     'rest_framework',
     'rest_framework_simplejwt',
-    'corsheaders',
+    'corsheaders',    
     'channels',
+    'channels_redis',  # Redis támogatás
     'users',
     'profiles',
     'matches',
-    'chat',
     'messaging',
 ]
 
-
+# ✅ Middleware beállítások
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -109,13 +155,10 @@ TEMPLATES = [
         },
     },
 ]
-
+# ✅ ASGI és WSGI alkalmazások
 WSGI_APPLICATION = 'connectmate.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+# ✅ Adatbázis beállítások (alapértelmezett SQLite, de PostgreSQL-re is átállítható)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -124,9 +167,7 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
+# ✅ Jelszó ellenőrzési szabályok
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -143,24 +184,21 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
+# ✅ Nemzetközi beállítások
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
+# ✅ Statikus fájlok kezelése
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+# Django admin és egyéb statikus fájlok helyének beállítása
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # Ha van egy `static/` mappa a projekt gyökérkönyvtárában
+]
 
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
+# ✅ Alapértelmezett elsődleges kulcs beállítása
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
