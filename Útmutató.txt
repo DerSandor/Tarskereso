@@ -1,0 +1,135 @@
+Fatal Love - Részletes Telepítési Útmutató Kezdőknek
+
+1. Szükséges programok telepítése:
+   a) Python telepítése:
+      - Látogass el a https://www.python.org/downloads/ oldalra
+      - Töltsd le a Python 3.8 vagy újabb verziót
+      - A telepítőben mindenképp jelöld be: "Add Python to PATH"
+      - Ellenőrzés: Nyiss egy parancssort és írd be: python --version
+
+   b) Node.js telepítése:
+      - Látogass el a https://nodejs.org/ oldalra
+      - Töltsd le az LTS (Long Term Support) verziót
+      - Futtasd a telepítőt az alapértelmezett beállításokkal
+      - Ellenőrzés: Nyiss egy parancssort és írd be: node --version
+
+   c) PostgreSQL telepítése:
+      - Látogass el a https://www.postgresql.org/download/ oldalra
+      - Töltsd le és telepítsd a PostgreSQL 12 vagy újabb verziót
+      - A telepítés során jegyezd meg:
+        * A megadott jelszót
+        * A port számot (alapértelmezetten 5432)
+      - Ellenőrzés: Nyisd meg a pgAdmin alkalmazást
+
+   d) Git telepítése:
+      - Látogass el a https://git-scm.com/downloads oldalra
+      - Töltsd le és telepítsd a Git-et
+      - Ellenőrzés: Nyiss egy parancssort és írd be: git --version
+
+2. Projekt letöltése:
+   a) Nyiss egy parancssort (Windows: PowerShell vagy CMD)
+   b) Navigálj oda, ahol tárolni szeretnéd a projektet (pl. cd Documents)
+   c) Másold be és futtasd:
+      ```
+      git clone <repository_url>
+      cd fatal-love
+      ```
+
+3. Backend beállítása:
+   a) Virtuális környezet létrehozása:
+      - Nyiss egy parancssort a fatal-love mappában
+      - Másold be és futtasd:
+        ```
+        # Környezet létrehozása
+        python -m venv venv
+
+        # Környezet aktiválása
+        # Windows esetén:
+        venv\Scripts\activate
+        # Mac/Linux esetén:
+        source venv/bin/activate
+        ```
+      - Ha sikeres, (venv) jelenik meg a parancssor elején
+
+   b) Python csomagok telepítése:
+      ```
+      pip install -r requirements.txt
+      ```
+      - Várj, amíg minden csomag települ
+
+   c) Környezeti változók beállítása:
+      - Hozz létre egy új fájlt `.env` néven a fatal-love mappában
+      - Másold bele az alábbi tartalmat:
+        ```
+        DEBUG=True
+        SECRET_KEY=fejlesztesi-kulcs-123
+        DATABASE_URL=postgres://postgres:JELSZÓ@localhost:5432/fatal_love
+        ```
+      - Cseréld ki a JELSZÓ részt a PostgreSQL telepítésekor megadott jelszóra
+
+   d) Adatbázis létrehozása:
+      - Nyisd meg a pgAdmin alkalmazást
+      - Jobb klikk a "Databases" -> "Create" -> "Database"
+      - Név: fatal_love
+      - OK
+
+   e) Adatbázis táblák létrehozása:
+      ```
+      python manage.py migrate
+      ```
+
+4. Frontend beállítása:
+   a) Nyiss egy új parancssort
+   b) Navigálj a frontend mappába:
+      ```
+      cd frontend
+      ```
+   c) Telepítsd a szükséges csomagokat:
+      ```
+      npm install
+      ```
+
+5. Program indítása:
+   a) Backend indítása:
+      - Az első parancssorban (ahol a venv aktív):
+      ```
+      python manage.py runserver
+      ```
+      - Hagyd futni ezt a parancsablakot!
+
+   b) Frontend indítása:
+      - A második parancssorban (frontend mappában):
+      ```
+      npm run dev
+      ```
+      - Hagyd futni ezt a parancsablakot is!
+
+6. A program megnyitása:
+   - Nyisd meg a böngésződet
+   - Frontend elérése: http://localhost:5173
+   - Backend admin felület: http://localhost:8000/admin
+
+Gyakori hibák és megoldásaik:
+
+1. "python nem található" hibaüzenet:
+   - Telepítsd újra a Python-t
+   - Jelöld be: "Add Python to PATH"
+   - Indítsd újra a parancssort
+
+2. "npm nem található" hibaüzenet:
+   - Telepítsd újra a Node.js-t
+   - Indítsd újra a parancssort
+
+3. Adatbázis kapcsolódási hiba:
+   - Ellenőrizd, hogy fut-e a PostgreSQL
+   - Ellenőrizd a jelszót a .env fájlban
+   - Ellenőrizd, hogy létezik-e a fatal_love adatbázis
+
+4. "Port already in use" hiba:
+   - Zárd be az összes parancsablakot
+   - Nyisd meg újra és indítsd el újra a szervereket
+
+Segítség kérése:
+- Ha hibába ütközöl, készíts képernyőképet a hibaüzenetről
+- Másold ki a hibaüzenetet
+- Keresd meg a fejlesztőket a [projekt GitHub oldalán] 

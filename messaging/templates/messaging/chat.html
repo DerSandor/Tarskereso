@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Chat: {{ conversation.user1 }} ↔ {{ conversation.user2 }}</h2>
+
+<div id="chat-box" style="border:1px solid #ccc; padding:10px; height:300px; overflow-y:scroll;">
+    {% for message in messages %}
+        <p><strong>{{ message.sender.username }}</strong>: {{ message.content }} <small>({{ message.timestamp }})</small></p>
+    {% endfor %}
+</div>
+
+<input type="text" id="message-input" placeholder="Írj egy üzenetet..." style="width:80%;">
+<button id="send-button">Küldés</button>
+
+<script>
+    function fetchMessages() {
+        fetch("{% url 'message-list' conversation.id %}")
+        .then(response => response.json())
+        .then(data => {
+            let chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML = "";  // Frissítéskor törli és újrarajzolja az üzeneteket
+            data.forEach(msg => {
+                chatBox.innerHTML += `<p><strong>${msg.sender.username}</strong>: ${msg.content} <small>(${msg.timestamp})</small></p>`;
+            });
+            chatBox.scrollTop = chatBox.scrollHeight; // Görgetés az aljára
+        });
+    }
+    
+    // Küldés gomb eseménykezelője
+    document.getElementById("send-button").addEventListener("click", function() {
+        let content = document.getElementById("message-input").value.trim();
+        if (content) {
+            fetch("{% url 'send-message' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "receiver_id": "{{ conversation.user2.id }}",
+                    "content": content
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.sender) {
+                    fetchMessages();  // Új üzenetek lekérése küldés után
+                    document.getElementById("message-input").value = "";
+                }
+            });
+        }
+    });
+    
+    // Automatikus frissítés 5 másodpercenként
+    setInterval(fetchMessages, 5000);
+    </script>
+       
+{% endblock %}
