@@ -109,12 +109,24 @@ const searchUsers = async (query) => {
 
 const getMatchedUsers = async () => {
   const token = sessionStorage.getItem("access_token");
-  const response = await axios.get("http://127.0.0.1:8000/api/matches/matched-users/", {
-    headers: {
-      Authorization: `Bearer ${token}`
+  if (!token) {
+    window.location.href = "/login";
+    return [];
+  }
+
+  try {
+    const response = await apiInstance.get("matches/matched-users/", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Match-ek lekérési hiba:", error);
+    if (error.response?.status === 401) {
+      sessionStorage.clear();
+      window.location.href = "/login";
     }
-  });
-  return response;
+    throw error;
+  }
 };
 
 const getConversations = async () => {
@@ -136,15 +148,24 @@ const getConversations = async () => {
 
 const getMessages = async (conversationId) => {
   const token = sessionStorage.getItem("access_token");
-  const response = await axios.get(
-    `http://127.0.0.1:8000/api/messages/conversations/${conversationId}/messages/`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+  if (!token) {
+    window.location.href = "/login";
+    return [];
+  }
+
+  try {
+    const response = await apiInstance.get(`messages/conversations/${conversationId}/messages/`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Üzenetek lekérési hiba:", error);
+    if (error.response?.status === 401) {
+      sessionStorage.clear();
+      window.location.href = "/login";
     }
-  );
-  return response.data;
+    throw error;
+  }
 };
 
 const sendMessage = (token, conversationId, content) => {
@@ -169,11 +190,18 @@ const getNextProfile = async (reset = false) => {
       return;
     }
     const response = await apiInstance.get(`matches/next/${reset ? '?reset=true' : ''}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     });
-    console.log('Next profile response:', response.data);
     return response;
   } catch (error) {
+    if (error.response?.status === 401) {
+      sessionStorage.clear();
+      window.location.href = "/login";
+      return;
+    }
     console.error("Hiba a profilok betöltésekor:", error);
     throw error;
   }

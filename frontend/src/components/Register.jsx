@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api';
 import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { showToast } from '../utils/toastConfig';
 import Layout from './Layout';
 
 function Register() {
@@ -14,28 +14,28 @@ function Register() {
     e.preventDefault();
     try {
       await registerUser(email, username, password);
-      toast.success('Sikeres regisztráció!');
+      showToast('Sikeres regisztráció!', 'success');
       navigate('/login');
     } catch (error) {
       if (error.response?.data?.email) {
-        toast.error('Ez az email cím már használatban van.');
+        showToast('Ez az email cím már használatban van.', 'error');
       } else if (error.response?.data?.username) {
-        toast.error('Ez a felhasználónév már foglalt.');
+        showToast('Ez a felhasználónév már foglalt.', 'error');
       } else {
-        toast.error('Hiba történt a regisztráció során.');
+        showToast('Hiba történt a regisztráció során.', 'error');
       }
     }
   };
 
   return (
     <Layout>
-      <div className="max-w-md mx-auto">
-        <h2 className="text-3xl font-bold text-fatal-dark mb-8 flex items-center">
+      <div className="max-w-md mx-auto px-4 sm:px-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-fatal-dark mb-6 sm:mb-8 flex items-center">
           <span className="material-icons text-fatal-red mr-2">person_add</span>
           Regisztráció
         </h2>
         
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
           <div>
             <label className="block text-fatal-gray mb-2" htmlFor="email">
               Email cím

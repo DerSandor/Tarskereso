@@ -1,4 +1,4 @@
-Fatal Love - Részletes Telepítési Útmutató Kezdőknek
+Fatal Love - Részletes Telepítési Útmutató Kezdőknek (Még nem kész verzió)
 
 1. Szükséges programok telepítése:
    a) Python telepítése:
@@ -13,44 +13,26 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
       - Futtasd a telepítőt az alapértelmezett beállításokkal
       - Ellenőrzés: Nyiss egy parancssort és írd be: node --version
 
-   c) PostgreSQL telepítése:
-      - Látogass el a https://www.postgresql.org/download/ oldalra
-      - Töltsd le és telepítsd a PostgreSQL 12 vagy újabb verziót
-      - A telepítés során jegyezd meg:
-        * A megadott jelszót
-        * A port számot (alapértelmezetten 5432)
-      - Ellenőrzés: Nyisd meg a pgAdmin alkalmazást
-
-   d) Git telepítése:
+   c) Git telepítése:
       - Látogass el a https://git-scm.com/downloads oldalra
       - Töltsd le és telepítsd a Git-et
       - Ellenőrzés: Nyiss egy parancssort és írd be: git --version
 
 2. Projekt letöltése:
    a) Nyiss egy parancssort (Windows: PowerShell vagy CMD)
-   b) Navigálj oda, ahol tárolni szeretnéd a projektet (pl. cd Documents)
+   b) Navigálj oda, ahol tárolni szeretnéd a projektet (pl. cd Downloads)
    c) Másold be és futtasd:
       ```
       git clone <repository_url>
-      cd fatal-love
+      cd Tarskereso
       ```
 
 3. Backend beállítása:
-   a) Virtuális környezet létrehozása:
-      - Nyiss egy parancssort a fatal-love mappában
-      - Másold be és futtasd:
-        ```
-        # Környezet létrehozása
-        python -m venv venv
-
-        # Környezet aktiválása
-        # Windows esetén:
-        venv\Scripts\activate
-        # Mac/Linux esetén:
-        source venv/bin/activate
-        ```
-      - Ha sikeres, (venv) jelenik meg a parancssor elején
-
+   a) Nyiss egy parancssort a backend mappában:
+      ```
+      cd backend
+      ```
+   
    b) Python csomagok telepítése:
       ```
       pip install -r requirements.txt
@@ -58,22 +40,14 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
       - Várj, amíg minden csomag települ
 
    c) Környezeti változók beállítása:
-      - Hozz létre egy új fájlt `.env` néven a fatal-love mappában
+      - Hozz létre egy új fájlt `.env` néven a backend mappában
       - Másold bele az alábbi tartalmat:
         ```
         DEBUG=True
         SECRET_KEY=fejlesztesi-kulcs-123
-        DATABASE_URL=postgres://postgres:JELSZÓ@localhost:5432/fatal_love
         ```
-      - Cseréld ki a JELSZÓ részt a PostgreSQL telepítésekor megadott jelszóra
 
-   d) Adatbázis létrehozása:
-      - Nyisd meg a pgAdmin alkalmazást
-      - Jobb klikk a "Databases" -> "Create" -> "Database"
-      - Név: fatal_love
-      - OK
-
-   e) Adatbázis táblák létrehozása:
+   d) Adatbázis táblák létrehozása:
       ```
       python manage.py migrate
       ```
@@ -82,7 +56,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
    a) Nyiss egy új parancssort
    b) Navigálj a frontend mappába:
       ```
-      cd frontend
+      cd Tarskereso/frontend
       ```
    c) Telepítsd a szükséges csomagokat:
       ```
@@ -91,7 +65,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
 
 5. Program indítása:
    a) Backend indítása:
-      - Az első parancssorban (ahol a venv aktív):
+      - Az első parancssorban (backend mappában):
       ```
       python manage.py runserver
       ```
@@ -120,12 +94,7 @@ Gyakori hibák és megoldásaik:
    - Telepítsd újra a Node.js-t
    - Indítsd újra a parancssort
 
-3. Adatbázis kapcsolódási hiba:
-   - Ellenőrizd, hogy fut-e a PostgreSQL
-   - Ellenőrizd a jelszót a .env fájlban
-   - Ellenőrizd, hogy létezik-e a fatal_love adatbázis
-
-4. "Port already in use" hiba:
+3. "Port already in use" hiba:
    - Zárd be az összes parancsablakot
    - Nyisd meg újra és indítsd el újra a szervereket
 

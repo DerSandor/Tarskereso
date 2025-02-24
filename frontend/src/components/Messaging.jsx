@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { getMessages, getConversations, getMatchedUsers } from "../api";
+import { getMessages, getConversations, getMatchedUsers, sendMessage } from "../api";
+import apiInstance from "../api";
+import { showToast } from '../utils/toastConfig';
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Message from './Message';
 
 // Adjuk hozzá a getImageUrl függvényt
 const getImageUrl = (profilePicture) => {
@@ -22,6 +25,7 @@ const Messaging = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isCreatingConversation, setIsCreatingConversation] = useState(false);
+    const [isSending, setIsSending] = useState(false);
 
     // ScrollToBottom függvény useCallback-be csomagolva
     const scrollToBottom = useCallback(() => {
@@ -250,33 +254,30 @@ const Messaging = () => {
         if (!selectedConversationId) return;
 
         const token = sessionStorage.getItem("access_token");
-        if (!token) return;
+        if (!token) {
+            window.location.href = "/login";
+            return;
+        }
 
         let ws = null;
         let cleanup = false;
 
-        const connectWebSocket = async () => {
-            if (cleanup) return;
-
+        const connectWebSocket = () => {
             try {
                 ws = new WebSocket(
                     `ws://127.0.0.1:8000/ws/chat/${selectedConversationId}/?token=${token}`
                 );
                 
                 ws.onopen = () => {
-                    if (cleanup) {
-                        ws.close();
-                        return;
-                    }
+                    console.log("WebSocket kapcsolat létrejött");
                     setSocket(ws);
-                    // Kapcsolódás után azonnal lekérjük az üzeneteket
-                    getMessages(selectedConversationId).then(messagesResponse => {
-                        if (!cleanup && messagesResponse?.length > 0) {
-                            setMessages(messagesResponse);
-                            setLastMessageId(messagesResponse[messagesResponse.length - 1].id);
-                            scrollToBottom();
-                        }
-                    });
+                };
+
+                ws.onclose = () => {
+                    console.log("WebSocket kapcsolat lezárult");
+                    if (!cleanup) {
+                        setTimeout(connectWebSocket, 1000); // Újracsatlakozási kísérlet
+                    }
                 };
 
                 ws.onmessage = (e) => {
@@ -285,15 +286,16 @@ const Messaging = () => {
                         const data = JSON.parse(e.data);
                         if (data.message) {
                             setMessages(prevMessages => {
+                                // Ellenőrizzük, hogy az üzenet már szerepel-e a listában
                                 const messageExists = prevMessages.some(msg => 
                                     msg.id === data.message.id || 
-                                    msg.id.toString().startsWith('temp-')
+                                    (msg.content === data.message.content && 
+                                     msg.sender_name === data.message.sender_name)
                                 );
+                                
                                 if (!messageExists) {
-                                    const newMessages = [...prevMessages, data.message];
-                                    setLastMessageId(data.message.id);
                                     scrollToBottom();
-                                    return newMessages;
+                                    return [...prevMessages, data.message];
                                 }
                                 return prevMessages;
                             });
@@ -302,14 +304,8 @@ const Messaging = () => {
                         // Csendes hiba kezelés
                     }
                 };
-
-                ws.onclose = () => {
-                    if (cleanup) return;
-                    setSocket(null);
-                };
-
-            } catch {
-                // Csendes hiba kezelés
+            } catch (error) {
+                console.error("WebSocket kapcsolódási hiba:", error);
             }
         };
 
@@ -319,45 +315,48 @@ const Messaging = () => {
             cleanup = true;
             if (ws) {
                 ws.close();
-                setSocket(null);
             }
         };
     }, [selectedConversationId, scrollToBottom]);
 
     // Módosítsuk az üzenetküldést
-    const handleSendMessage = async () => {
-        if (!messageContent.trim() || !selectedConversationId || !socket) return;
+    const handleSendMessage = async (e) => {
+        e.preventDefault();
+        if (!messageContent.trim() || !selectedConversationId || isSending) return;
 
-        const content = messageContent.trim();
-        setMessageContent("");
-
-        // Azonnal létrehozzuk az ideiglenes üzenetet
-        const tempMessage = {
-            id: `temp-${Date.now()}`,
-            content: content,
-            sender_name: sessionStorage.getItem("username"),
-            created_at: new Date().toISOString(),
-            is_read: false
-        };
-
-        // Azonnal megjelenítjük az üzenetet
-        setMessages(prevMessages => [...prevMessages, tempMessage]);
-        scrollToBottom();
+        const username = sessionStorage.getItem("username");
+        const messageToSend = messageContent.trim();
+        
+        setIsSending(true);
+        setMessageContent('');  // Azonnal töröljük az input mezőt
 
         try {
-            // Küldés WebSocketen keresztül
-            socket.send(JSON.stringify({
-                message: {
-                    content: content
-                }
-            }));
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                // WebSocket üzenetküldés
+                socket.send(JSON.stringify({
+                    message: {
+                        content: messageToSend,
+                        sender_name: username
+                    }
+                }));
+                // A szerver visszaküldi az üzenetet, így nem kell külön megjeleníteni
+            } else {
+                // Hagyományos API hívás
+                const response = await sendMessage(selectedConversationId, messageToSend);
+                setMessages(prev => [...prev, { 
+                    ...response, 
+                    sender_name: username,
+                    created_at: new Date().toISOString(),
+                    is_read: false
+                }]);
+                scrollToBottom();
+            }
         } catch (error) {
-            console.error("Hiba az üzenet küldésekor:", error);
-            // Hiba esetén eltávolítjuk az ideiglenes üzenetet
-            setMessages(prevMessages => 
-                prevMessages.filter(msg => msg.id !== tempMessage.id)
-            );
-            alert("Nem sikerült elküldeni az üzenetet!");
+            console.error('Üzenetküldési hiba:', error);
+            showToast('Nem sikerült elküldeni az üzenetet.', 'error');
+            setMessageContent(messageToSend); // Hiba esetén visszaállítjuk az üzenetet
+        } finally {
+            setIsSending(false);
         }
     };
 
@@ -413,6 +412,56 @@ const Messaging = () => {
             setIsCreatingConversation(false);
         }
     };
+
+    // Token ellenőrzése és beállítása
+    useEffect(() => {
+        const token = sessionStorage.getItem("access_token");
+        if (!token) {
+            window.location.href = "/login";
+            return;
+        }
+        
+        // Most már működni fog az apiInstance
+        apiInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }, []);
+
+    // Kezdeti adatok betöltése
+    useEffect(() => {
+        const loadInitialData = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                
+                const matchedUsersResponse = await getMatchedUsers();
+                if (matchedUsersResponse) {
+                    setMatchedUsers(matchedUsersResponse);
+                }
+
+                const lastConvId = localStorage.getItem("selectedConversationId");
+                if (lastConvId) {
+                    setSelectedConversationId(lastConvId);
+                    const messagesData = await getMessages(lastConvId);
+                    if (messagesData) {
+                        setMessages(messagesData);
+                        if (messagesData.length > 0) {
+                            setLastMessageId(messagesData[messagesData.length - 1].id);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Adatok betöltési hiba:", error);
+                setError("Nem sikerült betölteni az adatokat. Kérjük, jelentkezz be újra!");
+                if (error.response?.status === 401) {
+                    sessionStorage.clear();
+                    window.location.href = "/login";
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadInitialData();
+    }, []);
 
     if (loading) {
         return <div className="text-center py-8">
@@ -543,46 +592,13 @@ const Messaging = () => {
                                 <div className="space-y-4">
                                     {messages.map((msg, index) => {
                                         const isOwnMessage = msg.sender_name === sessionStorage.getItem("username");
-                                        const isTemp = msg.id.toString().startsWith('temp-');
                                         
                                         return (
-                                            <div 
+                                            <Message 
                                                 key={`${msg.id}-${index}`}
-                                                className="flex w-full"
-                                            >
-                                                <div 
-                                                    className={`rounded-lg p-3 max-w-[70%] shadow-md ${
-                                                        isOwnMessage || isTemp
-                                                            ? "bg-fatal-red text-fatal-light ml-auto" 
-                                                            : "bg-fatal-dark text-fatal-light"
-                                                    }`}
-                                                >
-                                                    <div className="font-semibold mb-1 text-sm">
-                                                        {msg.sender_name}
-                                                    </div>
-                                                    <div className="break-words">
-                                                        {msg.content}
-                                                    </div>
-                                                    <div className={`text-xs mt-2 flex justify-between items-center ${
-                                                        isOwnMessage || isTemp
-                                                            ? "text-fatal-light/80" 
-                                                            : "text-fatal-light/60"
-                                                    }`}>
-                                                        <span>{new Date(msg.created_at).toLocaleString()}</span>
-                                                        {(isOwnMessage || isTemp) && (
-                                                            <span className="ml-2 flex items-center">
-                                                                {isTemp ? (
-                                                                    <span className="italic text-fatal-light/80">Küldés alatt...</span>
-                                                                ) : (
-                                                                    <span className="material-icons text-sm">
-                                                                        {msg.is_read ? "done_all" : "done"}
-                                                                    </span>
-                                                                )}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                message={msg}
+                                                isOwnMessage={isOwnMessage}
+                                            />
                                         );
                                     })}
                                     <div ref={messagesEndRef} />

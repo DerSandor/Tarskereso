@@ -1,74 +1,50 @@
-# 💙 ConnectMate(Átmeneti név) - Online Társkereső Platform
+Fatal Love - Modern Társkereső Alkalmazás
 
-Ez egy teljes funkcionalitású társkereső webalkalmazás, amely lehetővé teszi a felhasználók számára a regisztrációt, profilkezelést, üzenetküldést és keresést. A backend **Django + Django REST Framework**, a frontend pedig **React + Vite** alapú.
+A Fatal Love egy modern, biztonságos és felhasználóbarát társkereső alkalmazás, amely segít megtalálni a tökéletes partnert.
 
----
+Főbb funkciók:
 
-## 📌 **Telepítési Útmutató**
+1. Felhasználói fiókok:
+   - Regisztráció email címmel
+   - Biztonságos bejelentkezés
+   - Jelszó visszaállítási lehetőség
+   - Profil szerkesztése
 
-### 🔹 **1. Klónozd a repót**
-```bash
-git clone https://github.com/DerSandor/Tarskereso.git
-cd Tarskereso
-🔹 2. Backend beállítása (Django + REST API)
-📌 Virtualenv aktiválása:
+2. Profilkezelés:
+   - Profilkép feltöltése
+   - Bemutatkozás írása
+   - Érdeklődési körök megadása
+   - Profil megtekintése és szerkesztése
 
-python -m venv venv
+3. Párosítási rendszer:
+   - Swipe funkció (jobbra like, balra skip)
+   - Match létrehozása kölcsönös like esetén
+   - Értesítés új match esetén
 
-Windows:
-venv\Scripts\activate
+4. Üzenetküldés:
+   - Valós idejű chat funkció
+   - Beszélgetés csak match esetén
+   - Chat előzmények megőrzése
 
-Mac/Linux:
-source venv/bin/activate
+5. Biztonság:
+   - Token alapú hitelesítés
+   - Védett végpontok
+   - Biztonságos jelszókezelés
 
-📌 Függőségek telepítése:
-pip install -r requirements.txt
+6. Felhasználói élmény:
+   - Reszponzív dizájn (mobil és asztali nézet)
+   - Modern, letisztult felület
+   - Intuitív navigáció
+   - Valós idejű frissítések
 
-📌 Adatbázis migrációk futtatása:
-python manage.py makemigrations
-python manage.py migrate
+7. Technikai jellemzők:
+   - REST API architektúra
+   - WebSocket alapú chat
+   - Biztonságos adattárolás
+   - Optimalizált teljesítmény
 
-📌 Admin fiók létrehozása (ha szükséges):
-python manage.py createsuperuser
-
-📌 Admin belépés: http://127.0.0.1:8000/admin/
-
-📌 Django szerver indítása:
-python manage.py runserver
-
-
-🔹 3. Frontend beállítása (React + Vite)
-cd frontend
-npm install
-npm run dev
-
-📌 React szerver futtatása: http://localhost:5173
-
-🚀 Funkciók
-✔ Regisztráció, Bejelentkezés, Jelszóváltoztatás
-✔ JWT alapú hitelesítés (access & refresh token)
-✔ Profil szerkesztés (bio, érdeklődés, profilkép feltöltés)
-✔ Felhasználók keresése (név vagy e-mail alapján)
-✔ Üzenetküldési rendszer (privát üzenetek)
-
-🛠 Használt technológiák
-Backend: Django, Django REST Framework, SimpleJWT
-Frontend: React, Vite, Axios, React Router
-Adatbázis: SQLite (alapértelmezett, de PostgreSQL-re is átállítható)
-Hitelesítés: JWT Token (SimpleJWT)
-Fájlfeltöltés: Django Media Storage
-
-🎯 Használat
-🔹 Regisztrálj vagy jelentkezz be
-🔹 Szerkeszd a profilodat (bio, érdeklődések, profilkép)
-🔹 Kereshetsz más felhasználók között
-🔹 Küldhetsz és fogadhatsz üzeneteket
-
-🔧 Fejlesztési tippek
-📌 Ha egy új csapattag dolgozik a kódbázison:
-git pull origin main
-
-📌 Ha módosítás után feltöltöd a GitHubra:
-git add .
-git commit -m "Új funkció vagy javítás"
-git push origin main
+A Fatal Love ideális választás azoknak, akik:
+- Modern és biztonságos környezetben szeretnének társat találni
+- Értékelik az egyszerű, letisztult felületet
+- Fontosnak tartják a valós idejű kommunikációt
+- Mobilon és számítógépen is szeretnék használni az alkalmazást 

@@ -1,28 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getNextProfile, sendLikeDislike } from '../api';
-import { toast } from 'react-toastify';
+import { showToast } from '../utils/toastConfig';
 import Layout from './Layout';
-
-// Toast stílus beállítások
-const toastConfig = {
-  position: "top-right",
-  autoClose: 3000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  theme: "dark",
-  style: {
-    background: '#1F2937', // fatal-dark
-    color: '#F3F4F6',     // fatal-light
-    borderRadius: '10px',
-    border: '2px solid #EF4444', // fatal-red
-    fontSize: '1rem',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-  },
-  icon: '❤️'
-};
 
 const getImageUrl = (profilePicture) => {
   if (!profilePicture) return null;
@@ -39,7 +18,6 @@ const SwipeProfiles = () => {
     setIsLoading(true);
     try {
       const response = await getNextProfile();
-      console.log('Fetched profile:', response.data);
       
       if (response.data.id) {
         setCurrentProfile(response.data);
@@ -48,11 +26,7 @@ const SwipeProfiles = () => {
       }
     } catch (err) {
       console.error('Profil betöltési hiba:', err);
-      toast.error('Nem sikerült új profilt betölteni.', {
-        ...toastConfig,
-        toastId: 'load-error',
-        icon: '❌'
-      });
+      showToast('Nem sikerült új profilt betölteni.', 'error');
     } finally {
       setIsLoading(false);
     }
@@ -64,7 +38,6 @@ const SwipeProfiles = () => {
 
   const handleAction = async (action) => {
     if (isAnimating || !currentProfile || !currentProfile.id) {
-      console.log('Action blocked:', { isAnimating, currentProfile });
       return;
     }
 
@@ -73,26 +46,18 @@ const SwipeProfiles = () => {
 
     try {
       const liked = action === 'like';
-      console.log('Sending like/dislike:', { liked, profileId: currentProfileId });
       
       const response = await sendLikeDislike(liked, currentProfileId);
       
       if (response.match) {
-        toast.success('Új match-ed van! 🎉', {
-          ...toastConfig,
-          toastId: 'new-match'
-        });
+        showToast('Új match-ed van! 🎉', 'match');
       }
 
       setCurrentProfile(null);
       await fetchNewProfile();
     } catch (err) {
       console.error('Művelet hiba:', err);
-      toast.error('Hiba történt a művelet során.', {
-        ...toastConfig,
-        toastId: 'action-error',
-        icon: '❌'
-      });
+      showToast('Hiba történt a művelet során.', 'error');
     } finally {
       setIsAnimating(false);
     }
@@ -110,11 +75,7 @@ const SwipeProfiles = () => {
       await fetchNewProfile();
     } catch (err) {
       console.error('Hiba a következő profil betöltésekor:', err);
-      toast.error('Nem sikerült betölteni a következő profilt.', {
-        ...toastConfig,
-        toastId: 'skip-error',
-        icon: '❌'
-      });
+      showToast('Nem sikerült betölteni a következő profilt.', 'error');
     } finally {
       setIsAnimating(false);
     }
@@ -122,7 +83,7 @@ const SwipeProfiles = () => {
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-fatal-dark mb-8 flex items-center">
           <span className="material-icons text-fatal-red mr-2">favorite</span>
           Profilok böngészése
@@ -136,13 +97,13 @@ const SwipeProfiles = () => {
         ) : currentProfile ? (
           <div className={`bg-fatal-light rounded-fatal shadow-fatal p-6 space-y-6 border-2 border-fatal-red
                           transition-transform duration-300 ${isAnimating ? 'scale-95' : 'scale-100'}`}>
-            <div className="flex items-start gap-8">
-              <div className="flex-shrink-0">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+              <div className="w-full md:w-48 flex-shrink-0">
                 {currentProfile.profile_picture ? (
                   <img 
                     src={getImageUrl(currentProfile.profile_picture)}
                     alt="Profil kép"
-                    className="w-48 h-48 rounded-full object-cover border-4 border-fatal-red"
+                    className="w-32 h-32 md:w-48 md:h-48 mx-auto rounded-full object-cover border-4 border-fatal-red"
                   />
                 ) : (
                   <div className="w-48 h-48 rounded-full bg-fatal-gray flex items-center justify-center">
@@ -172,7 +133,7 @@ const SwipeProfiles = () => {
               </div>
             </div>
 
-            <div className="flex justify-center gap-6 pt-6 border-t-2 border-fatal-red">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 pt-6 border-t-2 border-fatal-red">
               <button
                 onClick={handleSkip}
                 disabled={isAnimating}

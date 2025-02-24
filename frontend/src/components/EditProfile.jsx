@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getProfile, updateProfile } from '../api';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import Layout from './Layout';
-import { toastConfig } from '../utils/toastConfig';
+import { showToast } from '../utils/toastConfig';
 
 const EditProfile = () => {
   const [bio, setBio] = useState('');
@@ -41,33 +40,25 @@ const EditProfile = () => {
 
     try {
       await updateProfile(token, formData);
-      toast.success('Profil sikeresen frissítve!', {
-        ...toastConfig,
-        icon: '✅',
-        toastId: 'profile-update-success'
-      });
+      showToast('Profil sikeresen frissítve!', 'success');
       navigate('/profile');
     } catch (err) {
-      toast.error('Hiba történt a profil frissítése során.', {
-        ...toastConfig,
-        icon: '❌',
-        toastId: 'profile-update-error'
-      });
+      showToast('Hiba történt a profil frissítése során.', 'error');
     }
   };
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-fatal-dark mb-8 flex items-center">
           <span className="material-icons text-fatal-red mr-2">edit</span>
           Profil szerkesztése
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="flex items-start gap-8">
-            <div className="flex-shrink-0">
-              <div className="relative">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+            <div className="w-full md:w-auto flex-shrink-0">
+              <div className="relative mx-auto md:mx-0" style={{ width: 'fit-content' }}>
                 {previewUrl ? (
                   <img 
                     src={previewUrl} 
@@ -91,7 +82,7 @@ const EditProfile = () => {
               </div>
             </div>
 
-            <div className="flex-grow space-y-4">
+            <div className="flex-grow w-full space-y-4">
               <div>
                 <label className="block text-fatal-gray mb-2" htmlFor="bio">
                   Bemutatkozás
@@ -125,7 +116,7 @@ const EditProfile = () => {
             </div>
           </div>
 
-          <div className="flex gap-4 pt-6 border-t-2 border-fatal-red">
+          <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t-2 border-fatal-red">
             <button
               type="submit"
               className="flex items-center gap-2 px-6 py-3 bg-fatal-red text-fatal-light rounded-fatal

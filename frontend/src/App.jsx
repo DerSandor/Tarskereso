@@ -41,18 +41,6 @@ const AppContent = () => {
           <Route path="/profile/:userId" element={<ViewProfile />} />
         </Routes>
       </div>
-      <ToastContainer 
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
     </div>
   );
 };
@@ -62,6 +50,18 @@ function App() {
     <AuthProvider>
       <Router>
         <AppContent />
+        <ToastContainer 
+          position="top-right"
+          autoClose={3000}
+          limit={1}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={false}
+          theme="dark"
+        />
       </Router>
     </AuthProvider>
   );

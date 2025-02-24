@@ -1,20 +1,35 @@
-# Python
+# Python/Django
 __pycache__/
 *.py[cod]
+*.so
+.Python
 *.sqlite3
-*.log
-
-# Django
-db.sqlite3
-media/
-
-# Node.js / React
-node_modules/
-build/
-dist/
-
-# Környezeti változók
-.env
 
 # Virtuális környezet
 venv/
+ENV/
+
+# Root level node modules (nem kívánt)
+/node_modules/
+
+# Backend
+backend/staticfiles/
+backend/media/
+backend/.env
+backend/*.log
+
+# Frontend
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/dist/
+frontend/build/
+frontend/.cache/
+frontend/coverage/
+
+# IDE/Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store

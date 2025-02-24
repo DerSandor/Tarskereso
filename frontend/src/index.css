@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Üzenet animációk */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message-pending {
+  opacity: 0.7;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.message-sent {
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+
+/* Egyedi stílusok az üzenetekhez */
+.messages-container {
+  scroll-behavior: smooth;
+}
+
+.message-transition {
+  transition: all 0.3s ease-out;
+}
+
+/* Görgetősáv stílus */
+.messages-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: #ff4b4b;
+  border-radius: 10px;
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background: #ff3333;
+}
