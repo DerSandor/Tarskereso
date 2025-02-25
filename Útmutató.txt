@@ -25,6 +25,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek (Még nem kész verzi
       ```
       git clone <repository_url>
       cd Tarskereso
+      python -m venv venv
       ```
 
 3. Backend beállítása:
@@ -39,7 +40,8 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek (Még nem kész verzi
       ```
       - Várj, amíg minden csomag települ
 
-   c) Környezeti változók beállítása:
+
+   c)(Ez a lépés nem kell ,hogy jól fusson a program.) Környezeti változók beállítása:
       - Hozz létre egy új fájlt `.env` néven a backend mappában
       - Másold bele az alábbi tartalmat:
         ```
@@ -78,10 +80,26 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek (Még nem kész verzi
       ```
       - Hagyd futni ezt a parancsablakot is!
 
-6. A program megnyitása:
+6. Superuser létrehozása:
+   - A backend mappában:
+   ```
+   python manage.py createsuperuser
+   ```
+   Példa:
+   Email: admin@example.com
+   Username: admin
+   Password: Asd123456?
+   Password (again): Asd123456?
+   Superuser created successfully.  
+
+7. A program megnyitása:
    - Nyisd meg a böngésződet
    - Frontend elérése: http://localhost:5173
    - Backend admin felület: http://localhost:8000/admin
+
+8. Profilképek:
+   - A profilképeket a backend\media\profile_pictures mappában tároljuk el(png és jpg formátumban ,ha lehet).
+   (Ha a mappát nem találod, akkor hozz létre egy újat backend mappában)
 
 Gyakori hibák és megoldásaik:
 

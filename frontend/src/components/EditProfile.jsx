@@ -9,16 +9,19 @@ const EditProfile = () => {
   const [interests, setInterests] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const token = localStorage.getItem('access_token');
+  const token = sessionStorage.getItem('access_token');
   const navigate = useNavigate();
 
   useEffect(() => {
-    getProfile(token).then(response => {
-      setBio(response.data.bio || '');
-      setInterests(response.data.interests || '');
-      setPreviewUrl(response.data.profile_picture || null);
-    });
-  }, [token]);
+    const token = sessionStorage.getItem('access_token');
+    if (token) {
+      getProfile(token).then(response => {
+        setBio(response.data.bio || '');
+        setInterests(response.data.interests || '');
+        setPreviewUrl(response.data.profile_picture || null);
+      });
+    }
+  }, []);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

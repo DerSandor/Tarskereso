@@ -69,10 +69,24 @@ const getProfile = async () => {
   });
 };
 
-const updateProfile = (token, data) => {
-  return apiInstance.patch('profiles/me/edit/', data, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+const updateProfile = async (token, data) => {
+  try {
+    const response = await apiInstance.patch('profiles/me/edit/', data, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      withCredentials: true
+    });
+    return response;
+  } catch (error) {
+    if (error.response?.status === 401) {
+      // Token frissítés már automatikusan megtörténik az interceptorban
+      console.log("Token frissítés folyamatban...");
+    } else {
+      console.error("Profil frissítési hiba:", error);
+    }
+    throw error;
+  }
 };
 
 const registerUser = (email, username, password) => {
