@@ -2,7 +2,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek (Még nem kész verzi
 
 1. Szükséges programok telepítése:
    a) Python telepítése:
-      - Látogass el a https://www.python.org/downloads/ oldalra
+      - Látogass el a https://www.python.org/downloads/ oldalra (vagy Microsoft Store-ban keress erre:"Python")
       - Töltsd le a Python 3.8 vagy újabb verziót
       - A telepítőben mindenképp jelöld be: "Add Python to PATH"
       - Ellenőrzés: Nyiss egy parancssort és írd be: python --version
@@ -15,6 +15,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek (Még nem kész verzi
 
    c) Git telepítése:
       - Látogass el a https://git-scm.com/downloads oldalra
+      - Windows: 64-bit Git for Windows Setup.
       - Töltsd le és telepítsd a Git-et
       - Ellenőrzés: Nyiss egy parancssort és írd be: git --version
 

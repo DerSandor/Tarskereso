@@ -5,3 +5,5 @@ django-cors-headers==4.7.0
 channels==4.2.0
 Pillow==11.1.0
 redis==5.2.1
+daphne==4.1.0
+channels_redis==4.2.0
