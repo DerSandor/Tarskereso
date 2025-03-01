@@ -3,11 +3,12 @@ import axios from 'axios';
 const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 // Felhasználói regisztráció
-export const registerUser = (email, username, password) => {
+export const registerUser = (email, username, password, gender) => {
   return axios.post(`${API_BASE_URL}/users/register/`, {
     email,
     username,
-    password
+    password,
+    gender
   });
 };
 

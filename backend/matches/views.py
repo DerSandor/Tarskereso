@@ -137,7 +137,8 @@ class NextProfileView(generics.GenericAPIView):
                 "username": next_user.username,
                 "bio": profile.bio or "",
                 "interests": profile.interests or "",
-                "profile_picture": getImageUrl(profile.profile_picture) if profile.profile_picture else None
+                "profile_picture": getImageUrl(profile.profile_picture) if profile.profile_picture else None,
+                "gender": profile.gender
             }
             print(f"Sending response: {response_data}")
             return Response(response_data)

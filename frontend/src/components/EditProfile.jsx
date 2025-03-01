@@ -9,6 +9,7 @@ const EditProfile = () => {
   const [interests, setInterests] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [gender, setGender] = useState('M');
   const token = sessionStorage.getItem('access_token');
   const navigate = useNavigate();
 
@@ -19,6 +20,7 @@ const EditProfile = () => {
         setBio(response.data.bio || '');
         setInterests(response.data.interests || '');
         setPreviewUrl(response.data.profile_picture || null);
+        setGender(response.data.gender || 'M');
       });
     }
   }, []);
@@ -37,6 +39,7 @@ const EditProfile = () => {
     const formData = new FormData();
     formData.append('bio', bio);
     formData.append('interests', interests);
+    formData.append('gender', gender);
     if (profilePicture instanceof File) {
       formData.append('profile_picture', profilePicture);
     }
@@ -45,7 +48,8 @@ const EditProfile = () => {
       await updateProfile(token, formData);
       showToast('Profil sikeresen frissítve!', 'success');
       navigate('/profile');
-    } catch (err) {
+    } catch (error) {
+      console.error('Profil frissítési hiba:', error);
       showToast('Hiba történt a profil frissítése során.', 'error');
     }
   };
@@ -115,6 +119,24 @@ const EditProfile = () => {
                            bg-fatal-light text-fatal-dark"
                   placeholder="pl.: zene, utazás, sport..."
                 />
+              </div>
+
+              <div>
+                <label className="block text-fatal-gray mb-2" htmlFor="gender">
+                  Nem
+                </label>
+                <select
+                  id="gender"
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                  className="w-full p-3 border-2 border-fatal-red rounded-fatal
+                           focus:ring-2 focus:ring-fatal-red focus:border-fatal-red
+                           bg-fatal-light text-fatal-dark"
+                  required
+                >
+                  <option value="M">Férfi</option>
+                  <option value="F">Nő</option>
+                </select>
               </div>
             </div>
           </div>

@@ -89,8 +89,13 @@ const updateProfile = async (token, data) => {
   }
 };
 
-const registerUser = (email, username, password) => {
-  return apiInstance.post('users/register/', { email, username, password });
+const registerUser = (email, username, password, gender) => {
+  return apiInstance.post('users/register/', { 
+    email, 
+    username, 
+    password,
+    gender 
+  });
 };
 
 const changePassword = (token, currentPassword, newPassword) => {

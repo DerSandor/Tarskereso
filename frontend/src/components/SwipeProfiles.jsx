@@ -113,9 +113,12 @@ const SwipeProfiles = () => {
               </div>
 
               <div className="flex-grow space-y-4">
-                <h3 className="text-2xl font-bold text-fatal-dark">
-                  {currentProfile.username}
-                </h3>
+                <div className="text-center md:text-left">
+                  <h2 className="text-2xl font-bold text-fatal-dark mb-2">{currentProfile.username}</h2>
+                  <p className="text-lg text-fatal-gray">
+                    {currentProfile.gender === 'M' ? 'Férfi' : currentProfile.gender === 'F' ? 'Nő' : 'Egyéb'}
+                  </p>
+                </div>
 
                 <div>
                   <h4 className="text-lg font-semibold text-fatal-gray mb-2">Bemutatkozás</h4>

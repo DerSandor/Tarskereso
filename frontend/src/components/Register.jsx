@@ -8,19 +8,28 @@ function Register() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [gender, setGender] = useState('O');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await registerUser(email, username, password);
+      console.log('Regisztrációs adatok:', { email, username, password, gender });
+      const response = await registerUser(email, username, password, gender);
+      console.log('Sikeres regisztráció:', response);
       showToast('Sikeres regisztráció!', 'success');
       navigate('/login');
     } catch (error) {
-      if (error.response?.data?.email) {
-        showToast('Ez az email cím már használatban van.', 'error');
-      } else if (error.response?.data?.username) {
-        showToast('Ez a felhasználónév már foglalt.', 'error');
+      console.error('Regisztrációs hiba teljes válasz:', error.response);
+      if (error.response?.data) {
+        console.error('Szerver hibaüzenet:', error.response.data);
+        if (error.response.data.email) {
+          showToast('Ez az email cím már használatban van.', 'error');
+        } else if (error.response.data.username) {
+          showToast('Ez a felhasználónév már foglalt.', 'error');
+        } else {
+          showToast(`Hiba történt a regisztráció során: ${JSON.stringify(error.response.data)}`, 'error');
+        }
       } else {
         showToast('Hiba történt a regisztráció során.', 'error');
       }
@@ -29,13 +38,12 @@ function Register() {
 
   return (
     <Layout>
-      <div className="max-w-md mx-auto px-4 sm:px-6">
-        <h2 className="text-2xl sm:text-3xl font-bold text-fatal-dark mb-6 sm:mb-8 flex items-center">
-          <span className="material-icons text-fatal-red mr-2">person_add</span>
+      <div className="max-w-md w-full mx-auto p-6 bg-white rounded-fatal shadow-fatal">
+        <h2 className="text-2xl font-bold text-center text-fatal-dark mb-6">
           Regisztráció
         </h2>
-        
-        <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-fatal-gray mb-2" htmlFor="email">
               Email cím
@@ -47,7 +55,7 @@ function Register() {
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 border-2 border-fatal-red rounded-fatal
                        focus:ring-2 focus:ring-fatal-red focus:border-fatal-red
-                       bg-fatal-light text-fatal-dark placeholder-fatal-gray"
+                       bg-fatal-light text-fatal-dark"
               placeholder="pelda@email.com"
               required
             />
@@ -68,6 +76,25 @@ function Register() {
               placeholder="felhasználónév"
               required
             />
+          </div>
+
+          <div>
+            <label className="block text-fatal-gray mb-2" htmlFor="gender">
+              Nem
+            </label>
+            <select
+              id="gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              className="w-full p-3 border-2 border-fatal-red rounded-fatal
+                       focus:ring-2 focus:ring-fatal-red focus:border-fatal-red
+                       bg-fatal-light text-fatal-dark"
+              required
+            >
+              <option value="M">Férfi</option>
+              <option value="F">Nő</option>
+              <option value="O">Egyéb</option>
+            </select>
           </div>
           
           <div>

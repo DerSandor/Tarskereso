@@ -140,6 +140,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # WhiteNoise middleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -153,7 +154,7 @@ ROOT_URLCONF = 'fatal_love.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR.parent / 'frontend' / 'dist'],  # React build mappa
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -207,7 +208,12 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Django admin és egyéb statikus fájlok helyének beállítása
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # Ha van egy `static/` mappa a projekt gyökérkönyvtárában
+    BASE_DIR.parent / "frontend" / "dist",  # React build mappa
 ]
+
+# Új beállítás a React routerhez
+WHITENOISE_INDEX_FILE = True
+WHITENOISE_ROOT = BASE_DIR.parent / "frontend" / "dist"
 
 # ✅ Alapértelmezett elsődleges kulcs beállítása
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

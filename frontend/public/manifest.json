@@ -1,0 +1,15 @@
+{
+  "short_name": "Fatal Love",
+  "name": "Fatal Love - Társkereső alkalmazás",
+  "icons": [
+    {
+      "src": "Fatallogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#DC2626",
+  "background_color": "#F9FAFB"
+} 

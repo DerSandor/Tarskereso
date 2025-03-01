@@ -14,7 +14,10 @@ ENV/
 
 # Backend
 backend/staticfiles/
-backend/media/
+backend/media/*
+!backend/media/.gitkeep
+backend/media/profile_pictures/*
+!backend/media/profile_pictures/.gitkeep
 backend/.env
 backend/*.log
 

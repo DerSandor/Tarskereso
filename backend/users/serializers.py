@@ -38,17 +38,24 @@ class PasswordResetSerializer(serializers.Serializer):
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
+    gender = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password']
+        fields = ['email', 'username', 'password', 'gender']
 
     def create(self, validated_data):
+        gender = validated_data.pop('gender', 'O')
         user = User.objects.create_user(
             email=validated_data['email'],
             username=validated_data['username'],
             password=validated_data['password']
         )
+        
+        if hasattr(user, 'profile'):
+            user.profile.gender = gender
+            user.profile.save()
+        
         return user
 
 class UserSerializer(serializers.ModelSerializer):

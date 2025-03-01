@@ -1,4 +1,4 @@
-Fatal Love - Részletes Telepítési Útmutató Kezdőknek (Még nem kész verzió)
+Fatal Love - Részletes Telepítési Útmutató Kezdőknek 
 
 1. Szükséges programok telepítése:
    a) Python telepítése:
@@ -41,16 +41,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek (Még nem kész verzi
       ```
       - Várj, amíg minden csomag települ
 
-
-   c)(Ez a lépés nem kell ,hogy jól fusson a program.) Környezeti változók beállítása:
-      - Hozz létre egy új fájlt `.env` néven a backend mappában
-      - Másold bele az alábbi tartalmat:
-        ```
-        DEBUG=True
-        SECRET_KEY=fejlesztesi-kulcs-123
-        ```
-
-   d) Adatbázis táblák létrehozása:
+   c) Adatbázis táblák létrehozása:
       ```
       python manage.py migrate
       ```
@@ -65,21 +56,23 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek (Még nem kész verzi
       ```
       npm install
       ```
+   d) Készítsd el a production buildet:
+      ```
+      npm run build
+      ```
 
 5. Program indítása:
    a) Backend indítása:
-      - Az első parancssorban (backend mappában):
+      - A backend mappában:
       ```
+      python manage.py collectstatic
       python manage.py runserver
       ```
       - Hagyd futni ezt a parancsablakot!
 
-   b) Frontend indítása:
-      - A második parancssorban (frontend mappában):
-      ```
-      npm run dev
-      ```
-      - Hagyd futni ezt a parancsablakot is!
+   b) Az alkalmazás elérése:
+      - Nyisd meg a böngésződben: http://127.0.0.1:8000
+      - Backend admin felület: http://127.0.0.1:8000/admin
 
 6. Superuser létrehozása:
    - A backend mappában:
@@ -93,14 +86,9 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek (Még nem kész verzi
    Password (again): Asd123456?
    Superuser created successfully.  
 
-7. A program megnyitása:
-   - Nyisd meg a böngésződet
-   - Frontend elérése: http://localhost:5173
-   - Backend admin felület: http://localhost:8000/admin
-
-8. Profilképek:
-   - A profilképeket a backend\media\profile_pictures mappában tároljuk el(png és jpg formátumban ,ha lehet).
-   (Ha a mappát nem találod, akkor hozz létre egy újat backend mappában)
+7. Profilképek:
+   - A profilképeket a backend\media\profile_pictures mappában tároljuk el (png és jpg formátumban, ha nincs olyan mappád hozz egyet létre).
+   - A mappák automatikusan létrejönnek, amikor szükség van rájuk.
 
 Gyakori hibák és megoldásaik:
 
@@ -115,7 +103,15 @@ Gyakori hibák és megoldásaik:
 
 3. "Port already in use" hiba:
    - Zárd be az összes parancsablakot
-   - Nyisd meg újra és indítsd el újra a szervereket
+   - Nyisd meg újra és indítsd el újra a szervert
+
+4. Ha módosítod a frontend kódot:
+   - Állítsd le a szervert
+   - Navigálj a frontend mappába
+   - Futtasd: npm run build
+   - Navigálj vissza a backend mappába
+   - Futtasd: python manage.py collectstatic
+   - Indítsd újra a szervert: python manage.py runserver
 
 Segítség kérése:
 - Ha hibába ütközöl, készíts képernyőképet a hibaüzenetről

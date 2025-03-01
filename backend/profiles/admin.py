@@ -3,7 +3,9 @@ from .models import Profile
 from django.utils.html import format_html
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'bio', 'interests', 'profile_image_preview')
+    list_display = ('user', 'gender', 'bio', 'interests', 'profile_image_preview')
+    list_filter = ('gender',)  # Lehetővé teszi a nem szerinti szűrést
+    search_fields = ('user__username', 'user__email', 'bio', 'interests')  # Keresési mezők
 
     def profile_image_preview(self, obj):
         if obj.profile_picture:
