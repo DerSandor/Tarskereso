@@ -1,11 +1,23 @@
 Fatal Love - Részletes Telepítési Útmutató Kezdőknek 
 
 1. Szükséges programok telepítése:
-   a) Python telepítése:
-      - Látogass el a https://www.python.org/downloads/ oldalra (vagy Microsoft Store-ban keress erre:"Python")
-      - Töltsd le a Python 3.8 vagy újabb verziót
-      - A telepítőben mindenképp jelöld be: "Add Python to PATH"
+   a) Python telepítése(2 opció):
+   1. Opció(Nehezebb):
+      - Látogass el a https://www.python.org/downloads/ oldalra 
+      - Töltsd le a Python 3.12 vagy újabb verziót
+      - A telepítőben mindenképp jelöld be: "Add python.exe to PATH"
+      - Customize installation-t válazd és az Advanced Options alatt jelöld be ezeket:
+         "Install ... for all users"
+         "Add Python to environment variables"
+         "Create shortcuts for installed applications"
       - Ellenőrzés: Nyiss egy parancssort és írd be: python --version
+
+   2. Opció(Egyszerűbb):
+      - Vagy Microsoft Store-ban keress a:"Python"-ra (a 3.12 és 3.13-as verziókal működik) és csak Telepíteni kell 
+      de ,ha a a másik opcióval már próbálkoztál ezeket a parancsokat újra ki kell adni:
+      - python -m venv venv 
+      - pip install -r requirements.txt
+      - python manage.py runserver
 
    b) Node.js telepítése:
       - Látogass el a https://nodejs.org/ oldalra
@@ -87,7 +99,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
    Superuser created successfully.  
 
 7. Profilképek:
-   - A profilképeket a backend\media\profile_pictures mappában tároljuk el (png és jpg formátumban, ha nincs olyan mappád hozz egyet létre).
+   - A profilképeket a backend\media\profile_pictures mappában tároljuk el (png és jpg formátumban, már más mappákból is lehet képet feltölteni).
    - A mappák automatikusan létrejönnek, amikor szükség van rájuk.
 
 Gyakori hibák és megoldásaik:
