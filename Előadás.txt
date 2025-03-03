@@ -51,18 +51,6 @@ Fatal Love Társkereső Alkalmazás - Vizsga Előadásterv
    - Matching algorithm
    - Real-time messaging
 
-5. ENGLISH PRESENTATION
-   Introduction:
-   "Our team developed Fatal Love, a modern dating application. The main goal 
-    was to create a platform where users can find meaningful connections."
-
-   Technical Overview:
-   "We used Django REST framework for the backend and React for the frontend. 
-    The application features JWT authentication and real-time chat functionality."
-
-   Features and Future Plans:
-   "The app includes profile management, matching system, and instant messaging. 
-    Future plans include adding video chat and location-based matching."
 
 6. KÉRDÉSEK ÉS VÁLASZOK
 
