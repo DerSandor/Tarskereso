@@ -2,7 +2,14 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
 
 1. Szükséges programok telepítése:
    a) Python telepítése(2 opció):
-   1. Opció(Nehezebb):
+   1. Opció(Egyszerűbb):
+      - Vagy Microsoft Store-ban keress a:"Python"-ra (a 3.12 és 3.13-as verziókal működik) és csak Telepíteni kell 
+      de ,ha a a másik opcióval már próbálkoztál ezeket a parancsokat újra ki kell adni:
+      - python -m venv venv 
+      - pip install -r requirements.txt
+      - python manage.py runserver
+
+   2. Opció(Nehezebb):
       - Látogass el a https://www.python.org/downloads/ oldalra 
       - Töltsd le a Python 3.12 vagy újabb verziót
       - A telepítőben mindenképp jelöld be: "Add python.exe to PATH"
@@ -12,12 +19,6 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
          "Create shortcuts for installed applications"
       - Ellenőrzés: Nyiss egy parancssort és írd be: python --version
 
-   2. Opció(Egyszerűbb):
-      - Vagy Microsoft Store-ban keress a:"Python"-ra (a 3.12 és 3.13-as verziókal működik) és csak Telepíteni kell 
-      de ,ha a a másik opcióval már próbálkoztál ezeket a parancsokat újra ki kell adni:
-      - python -m venv venv 
-      - pip install -r requirements.txt
-      - python manage.py runserver
 
    b) Node.js telepítése:
       - Látogass el a https://nodejs.org/ oldalra
@@ -31,7 +32,23 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
       - Töltsd le és telepítsd a Git-et
       - Ellenőrzés: Nyiss egy parancssort és írd be: git --version
 
-2. Projekt letöltése:
+2. Automatikus telepítés (Ajánlott módszer):
+   a) Telepítsd a szükséges programokat:
+      - Python 3.12 vagy újabb (https://www.python.org/downloads/)
+      - Node.js LTS verzió (https://nodejs.org/)
+      Fontos: Mindkét telepítésnél jelöld be az "Add to PATH" opciót!
+   
+   b) Projekt telepítése és indítása:
+      - Töltsd le és csomagold ki a projektet
+      - Futtasd a fatal_love_installer.py fájlt (dupla klikk)
+      - Válaszd az 1-es opciót a teljes telepítéshez
+      - Várj, amíg a telepítés befejeződik
+      - Ezután válaszd a 2-es opciót a szerver indításához
+      - Az oldal elérhető lesz a http://127.0.0.1:8000 címen     
+
+   Ha az automatikus telepítés nem működne, kövesd a kézi telepítés lépéseit:
+
+3. Projekt letöltése:
    a) Nyiss egy parancssort (Windows: PowerShell vagy CMD)
    b) Navigálj oda, ahol tárolni szeretnéd a projektet (pl. cd Downloads)
    c) Másold be és futtasd:
@@ -41,7 +58,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
       python -m venv venv
       ```
 
-3. Backend beállítása:
+4. Backend beállítása:
    a) Nyiss egy parancssort a backend mappában:
       ```
       cd backend
@@ -58,7 +75,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
       python manage.py migrate
       ```
 
-4. Frontend beállítása:
+5. Frontend beállítása:
    a) Nyiss egy új parancssort
    b) Navigálj a frontend mappába:
       ```
@@ -73,7 +90,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
       npm run build
       ```
 
-5. Program indítása:
+6. Program indítása:
    a) Backend indítása:
       - A backend mappában:
       ```
@@ -86,7 +103,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
       - Nyisd meg a böngésződben: http://127.0.0.1:8000
       - Backend admin felület: http://127.0.0.1:8000/admin
 
-6. Superuser létrehozása:
+7. Superuser létrehozása:
    - A backend mappában:
    ```
    python manage.py createsuperuser
@@ -98,7 +115,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
    Password (again): Asd123456?
    Superuser created successfully.  
 
-7. Profilképek:
+8. Profilképek:
    - A profilképeket a backend\media\profile_pictures mappában tároljuk el (png és jpg formátumban, már más mappákból is lehet képet feltölteni).
    - A mappák automatikusan létrejönnek, amikor szükség van rájuk.
 
@@ -124,6 +141,16 @@ Gyakori hibák és megoldásaik:
    - Navigálj vissza a backend mappába
    - Futtasd: python manage.py collectstatic
    - Indítsd újra a szervert: python manage.py runserver
+
+5. Ha az automatikus telepítő hibát jelez:
+   - Ellenőrizd, hogy a Python és Node.js telepítve van-e
+   - Nyiss egy új parancssort és ellenőrizd:
+     * python --version
+     * node --version
+     * npm --version
+   - Ha valamelyik nem működik, telepítsd újra az adott programot
+   - Győződj meg róla, hogy az "Add to PATH" opció be volt jelölve
+   - Indítsd újra a számítógépet a telepítések után
 
 Segítség kérése:
 - Ha hibába ütközöl, készíts képernyőképet a hibaüzenetről
