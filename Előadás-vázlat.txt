@@ -1,0 +1,325 @@
+Fatal Love Társkereső Alkalmazás - Vizsga Előadásterv
+
+1. BEVEZETÉS
+   - Csapat bemutatása
+   - Projekt célja és célközönsége
+   - Alkalmazás fő funkciói
+
+2. TECHNIKAI MEGVALÓSÍTÁS
+   - Backend architektúra
+     * Django REST framework
+     * JWT autentikáció
+     * Adatbázis struktúra
+   - Frontend fejlesztés
+     * React komponensek
+     * Reszponzív dizájn
+     * State management
+   - API kommunikáció
+     * RESTful endpoints
+     * WebSocket chat funkció
+
+3. FELHASZNÁLÓI FELÜLET ÉS FUNKCIÓK
+   - Regisztráció és bejelentkezés
+   - Profil kezelés
+   - Párosítási rendszer
+   - Chat funkció
+   - Képfeltöltés és kezelés
+   - Mobilbarát felület bemutatása
+
+4. FEJLESZTÉSI FOLYAMAT
+   - Git verziókezelés
+   - Csapatmunka szervezése
+   - Tesztelési stratégiák
+   - Kódminőség biztosítása
+
+5. ANGOL NYELVŰ ÖSSZEFOGLALÓ VÁZLAT:
+   Introduction:
+   - Team introduction and project overview
+   - Target audience and market need
+   - Core functionalities
+
+   Technical Overview:
+   - Backend architecture and security
+   - Frontend development choices
+   - Real-time features implementation
+
+   Features Demonstration:
+   - User registration and authentication
+   - Profile management system
+   - Matching algorithm
+   - Real-time messaging
+
+
+6. KÉRDÉSEK ÉS VÁLASZOK
+
+RÉSZLETES ELŐADÁS VÁZLAT:
+
+1. BEVEZETÉS:
+"Üdvözlöm a tisztelt vizsgabizottságot! A Fatal Love társkereső alkalmazást szeretnénk bemutatni, amit háromfős csapatunkkal fejlesztettünk. Alkalmazásunk a modern társkeresés kihívásaira nyújt megoldást, ötvözve a népszerű swipe-alapú párosítást a részletes profilkezeléssel."
+
+2. TECHNIKAI MEGVALÓSÍTÁS:
+"Alkalmazásunk két fő komponensből áll: egy Django REST framework alapú backendből és egy React frontend-ből. A backend JWT alapú autentikációt használ, ami biztonságos és skálázható megoldást nyújt. Az adatok SQLite adatbázisban tárolódnak, amit a Django ORM kezel. A valós idejű chat funkciót WebSocket technológiával valósítottuk meg."
+
+3. FELHASZNÁLÓI FELÜLET:
+"A frontend fejlesztésnél kiemelt figyelmet fordítottunk a reszponzív dizájnra. A Tailwind CSS keretrendszert használtuk, ami lehetővé tette az egységes és modern megjelenést minden eszközön. A felhasználói élmény központi elemei: az intuitív profilkezelés, a swipe-alapú párosítás és a valós idejű üzenetküldés."
+
+4. FEJLESZTÉSI FOLYAMAT:
+"A fejlesztés során Git verziókezelést használtunk, ami lehetővé tette a hatékony csapatmunkát. A kód tisztaságát és minőségét folyamatos code review-val biztosítottuk. A tesztelést automatizált egység- és integrációs tesztekkel végeztük."
+
+5. ENGLISH PRESENTATION
+   Introduction:
+   "Our team developed Fatal Love, a modern dating application. The main goal 
+    was to create a platform where users can find meaningful connections."
+
+   Technical Overview:
+   "We used Django REST framework for the backend and React for the frontend. 
+    The application features JWT authentication and real-time chat functionality."
+
+   Features and Future Plans:
+   "The app includes profile management, matching system, and instant messaging. 
+    Future plans include adding video chat and location-based matching."
+
+ZÁRSZÓ:
+"Projektünk demonstrálja a modern webtechnológiák hatékony használatát és a felhasználóközpontú tervezés fontosságát. Köszönjük a figyelmet!"
+
+
+
+
+RÉSZLETES POWERPOINT PREZENTÁCIÓ TERV - FATAL LOVE TÁRSKERESŐ ALKALMAZÁS
+
+1. DIA: CÍMLAP
+   - Cím: "Fatal Love - Modern Társkereső Alkalmazás"
+   - Alcím: "Vizsgaremek bemutató"
+   - Csapattagok neve
+   - Dátum
+   - Háttérkép: Fatal Love logó (Fatallogo.png)
+
+2. DIA: BEVEZETÉS ÉS PROJEKT ÁTTEKINTÉS
+   - Projekt célja: Modern, biztonságos és felhasználóbarát társkereső alkalmazás létrehozása
+   - Célközönség: Fiatal felnőttek, akik értékelik a letisztult, modern felületet
+   - Fő funkciók rövid felsorolása:
+     * Felhasználói fiókok és profilkezelés
+     * Swipe alapú párosítási rendszer
+     * Valós idejű üzenetküldés
+     * Reszponzív dizájn
+
+3. DIA: FELHASZNÁLÓI ÉLMÉNY ÉS FUNKCIÓK
+   - Regisztráció és bejelentkezés folyamata
+   - Profil létrehozása és szerkesztése
+   - Párosítási rendszer működése (swipe funkció)
+   - Match létrehozása és értesítések
+   - Üzenetküldés és chat funkció
+
+4. DIA: FRONTEND FEJLESZTÉS
+   - Használt technológiák:
+     * React 19.0.0
+     * React Router 7.1.5
+     * Tailwind CSS 3.4.17
+     * Axios API kommunikációhoz
+   - Komponens alapú architektúra
+   - Reszponzív dizájn megvalósítása
+   - State management megoldások
+
+5. DIA: BACKEND ARCHITEKTÚRA (RÉSZLETES)
+   - Django REST Framework alapú API
+   - Adatbázis struktúra és modellek:
+     * User modell (auth)
+     * Profile modell (felhasználói adatok)
+     * Match modell (párosítások)
+     * Message modell (üzenetek)
+   - JWT alapú autentikáció és biztonság
+   - Végpontok és API struktúra
+
+6. DIA: BACKEND TECHNOLÓGIÁK ÉS MEGVALÓSÍTÁS
+   - Django 5.1.6 és Django REST Framework 3.14.0
+   - JWT autentikáció (djangorestframework-simplejwt 5.4.0)
+   - WebSocket alapú chat (Channels 4.2.0, Redis)
+   - Képkezelés (Pillow 11.1.0)
+   - CORS kezelés és biztonság
+
+7. DIA: VALÓS IDEJŰ KOMMUNIKÁCIÓ
+   - WebSocket technológia bemutatása
+   - Chat funkció architektúrája
+   - Üzenetek tárolása és megjelenítése
+   - Értesítési rendszer
+
+8. DIA: FEJLESZTÉSI FOLYAMAT
+   - Git alapú verziókezelés
+   - Csapatmunka szervezése és feladatmegosztás
+   - Tesztelési stratégiák
+   - Kihívások és megoldások
+
+
+9. DIA: ENGLISH SUMMARY - FATAL LOVE DATING APP
+   - Project Overview:
+     * Modern dating application with swipe-based matching
+     * Secure user authentication and profile management
+     * Real-time messaging system
+   - Technical Implementation:
+     * Django REST Framework backend with JWT authentication
+     * React frontend with responsive design
+     * WebSocket-based chat functionality
+   - Key Features:
+     * User-friendly interface
+     * Matching algorithm
+     * Real-time notifications
+
+10. DIA: JÖVŐBELI FEJLESZTÉSI TERVEK ÉS ÖSSZEGZÉS
+    - Tervezett új funkciók:
+      * Helyzet alapú párosítás
+      * Videó chat funkció
+      * Bővített profilbeállítások
+    - Tanulságok és tapasztalatok
+    - Köszönetnyilvánítás
+
+
+
+RÉSZLETES ELŐADÁS SZÖVEG - FATAL LOVE TÁRSKERESŐ ALKALMAZÁS
+
+1. DIA: CÍMLAP - BEVEZETÉS
+
+"Tisztelt Vizsgabizottság! Köszöntöm Önöket a Fatal Love társkereső alkalmazás bemutatóján. A nevem [Név], és csapattársaimmal, [Név1] és [Név2] közösen fejlesztettük ezt a modern társkereső platformot. Prezentációnk során bemutatjuk az alkalmazás főbb funkcióit, a fejlesztés során használt technológiákat, valamint a megvalósítás részleteit. Célunk egy olyan társkereső alkalmazás létrehozása volt, amely ötvözi a népszerű swipe-alapú párosítási rendszert a részletes profilkezeléssel és a valós idejű kommunikációs lehetőségekkel."
+
+2. DIA: PROJEKT ÁTTEKINTÉS
+
+"A Fatal Love társkereső alkalmazás elsődleges célközönsége a fiatal felnőttek, akik értékelik a letisztult, modern felhasználói felületet és a biztonságos online ismerkedési lehetőségeket. Alkalmazásunk négy fő funkcionális pillérre épül: a felhasználói fiókok és profilkezelésre, a swipe alapú párosítási rendszerre, a valós idejű üzenetküldésre, valamint a reszponzív, minden eszközön jól használható felhasználói felületre.
+
+Az alkalmazás fejlesztése során kiemelt figyelmet fordítottunk a felhasználói élményre, a biztonságra és a modern webtechnológiák hatékony alkalmazására. A projekt teljes mértékben webalapú, így platformfüggetlen, és bármilyen eszközről elérhető egy egyszerű böngészőn keresztül."
+
+3. DIA: FELHASZNÁLÓI ÉLMÉNY ÉS FUNKCIÓK
+
+"A Fatal Love használata a regisztrációval kezdődik, ahol a felhasználók megadhatják alapvető adataikat és létrehozhatják fiókjukat. A regisztráció után a felhasználók részletes profilt állíthatnak össze, amely tartalmazza személyes adataikat, érdeklődési köreiket és profilképeiket. A profilok részletessége kulcsfontosságú a megfelelő párosítások létrehozásához.
+
+A párosítási rendszer a népszerű swipe mechanizmuson alapul: a felhasználók jobbra húzással jelezhetik érdeklődésüket, balra húzással pedig elutasíthatják a megjelenített profilokat. Amikor két felhasználó kölcsönösen érdeklődést mutat egymás iránt, létrejön egy 'match', és megnyílik a lehetőség a kommunikációra.
+
+A chat funkció lehetővé teszi a párosított felhasználók számára a valós idejű üzenetváltást. Az üzenetek azonnal megjelennek a címzettnél, és a rendszer jelzi az üzenetek állapotát: elküldve, kézbesítve vagy olvasva. A felhasználók értesítést kapnak új üzenetek érkezésekor, még akkor is, ha éppen az alkalmazás más részét használják."
+
+4. DIA: FRONTEND FEJLESZTÉS
+
+"A Fatal Love frontend fejlesztése során a React 19.0.0 keretrendszert használtuk, amely lehetővé tette a modern, komponens alapú felhasználói felület kialakítását. A navigációt a React Router 7.1.5 biztosítja, amely zökkenőmentes átmenetet tesz lehetővé az alkalmazás különböző részei között.
+
+A felhasználói felület stílusát a Tailwind CSS 3.4.17 segítségével alakítottuk ki, amely egy utility-first CSS keretrendszer. Ez lehetővé tette számunkra a gyors fejlesztést és a konzisztens megjelenést az alkalmazás minden részén. A Tailwind segítségével könnyen megvalósítottuk a reszponzív dizájnt, így az alkalmazás mind asztali számítógépeken, mind mobil eszközökön optimálisan használható.
+
+Az API kommunikációt az Axios 1.7.9 könyvtár segítségével valósítottuk meg, amely egyszerű és hatékony HTTP kéréseket tesz lehetővé a backend felé. A felhasználói visszajelzéseket és értesítéseket a React Toastify 11.0.3 komponens segítségével jelenítjük meg, amely elegáns és nem tolakodó módon tájékoztatja a felhasználókat az alkalmazás eseményeiről."
+
+5. DIA: BACKEND ARCHITEKTÚRA
+
+"A Fatal Love backend rendszere a Django 5.1.6 és a Django REST Framework 3.14.0 technológiákra épül. Ez a kombináció robusztus, biztonságos és jól skálázható alapot biztosít az alkalmazás számára. A backend architektúra négy fő modellre épül, amelyek a felhasználói adatok, profilok, párosítások és üzenetek kezelését biztosítják.
+
+A User modell a Django beépített felhasználói rendszerére épül, és kezeli a felhasználói fiókokat, jelszavakat és jogosultságokat. Minden felhasználóhoz egy Profile modell kapcsolódik, amely a részletes személyes adatokat, érdeklődési köröket és profilképeket tárolja. A Match modell a felhasználók közötti párosításokat reprezentálja, míg a Message modell az üzenetváltásokat tárolja.
+
+Az adatbázis kapcsolatok gondosan tervezettek: a User és Profile modellek között one-to-one kapcsolat van, a Match modell két User-re hivatkozik many-to-many kapcsolattal, a Message modell pedig a küldőre és címzettre hivatkozik foreign key kapcsolatokkal. Ez a struktúra biztosítja az adatok integritását és a hatékony lekérdezéseket."
+
+6. DIA: BACKEND TECHNOLÓGIÁK ÉS BIZTONSÁG
+
+"A backend fejlesztése során kiemelt figyelmet fordítottunk a biztonságra és a teljesítményre. A felhasználói autentikációt a djangorestframework-simplejwt 5.4.0 csomag segítségével valósítottuk meg, amely JSON Web Token alapú hitelesítést biztosít. Ez a modern megközelítés biztonságos, állapotmentes és jól skálázható autentikációt tesz lehetővé.
+
+A valós idejű kommunikációt a Django Channels 4.2.0 és a Redis 5.2.1 technológiák kombinációjával valósítottuk meg. A Channels lehetővé teszi a WebSocket kapcsolatok kezelését, míg a Redis hatékony üzenetközvetítőként szolgál a különböző szerverinstanciák között. Ez a megoldás biztosítja, hogy az üzenetek azonnal eljussanak a címzettekhez, még nagy terhelés esetén is.
+
+A képkezelést a Pillow 11.1.0 könyvtár segítségével oldottuk meg, amely lehetővé teszi a profilképek feltöltését, méretezését és optimalizálását. A statikus fájlok kiszolgálását a WhiteNoise 6.6.0 biztosítja, amely hatékony és egyszerű megoldást nyújt a produkciós környezetben.
+
+A biztonság további rétegét a django-cors-headers 4.7.0 csomag biztosítja, amely szabályozza, hogy mely domainek férhetnek hozzá az API-hoz, megvédve az alkalmazást a cross-site scripting (XSS) és cross-site request forgery (CSRF) támadásoktól."
+
+7. DIA: VALÓS IDEJŰ KOMMUNIKÁCIÓ RÉSZLETEI
+
+"A Fatal Love egyik legfontosabb funkciója a valós idejű chat, amelyet a WebSocket technológia segítségével valósítottunk meg. A Django Channels keretrendszer három fő komponensből áll: a WebSocket fogyasztókból (consumers), a csatorna rétegekből (channel layers) és az üzenetkezelő rendszerből.
+
+A WebSocket fogyasztók kezelik a kapcsolatokat és az üzeneteket. Amikor egy felhasználó csatlakozik a chat felülethez, egy dedikált WebSocket kapcsolat jön létre, amely lehetővé teszi az azonnali kétirányú kommunikációt. A csatorna rétegek a Redis adatbázist használják az üzenetek továbbítására a különböző szerverinstanciák között, ami biztosítja a skálázhatóságot.
+
+Az üzenetek tárolása az adatbázisban történik, ami lehetővé teszi a chat előzmények megtekintését. Minden üzenet tartalmazza a küldő és címzett azonosítóját, az üzenet tartalmát, időbélyegét és állapotát. Az üzenetek állapota (elküldve, kézbesítve, olvasva) valós időben frissül, és a felhasználók értesítést kapnak az új üzenetekről.
+
+A rendszer képes kezelni a kapcsolat megszakadását is: ha egy felhasználó offline állapotba kerül, az üzenetek tárolódnak, és a következő bejelentkezéskor automatikusan megjelennek. Ez a megoldás biztosítja, hogy egyetlen üzenet se vesszen el, és a felhasználói élmény folyamatos maradjon."
+
+8. DIA: FEJLESZTÉSI FOLYAMAT ÉS KIHÍVÁSOK
+
+"A Fatal Love fejlesztése során Git verziókezelést használtunk, amely lehetővé tette a hatékony csapatmunkát és a kód változásainak követését. A fejlesztési folyamat során agilis módszertant követtünk, rendszeres sprint tervezéssel és retrospektívekkel.
+
+A fejlesztés során számos kihívással szembesültünk. Az egyik legnagyobb kihívás a valós idejű kommunikáció megvalósítása volt, különösen a WebSocket kapcsolatok kezelése és a Redis integrációja. Egy másik jelentős kihívás a felhasználói élmény optimalizálása volt különböző eszközökön, amit a Tailwind CSS segítségével sikeresen megoldottunk.
+
+A tesztelés során automatizált egység- és integrációs teszteket használtunk, amelyek biztosították a kód minőségét és a funkciók megfelelő működését. A felhasználói tesztelés során kapott visszajelzések alapján folyamatosan finomítottuk az alkalmazás funkcióit és felhasználói felületét.
+
+A projekt során szerzett tapasztalatok értékesek voltak számunkra, különösen a modern webtechnológiák gyakorlati alkalmazása és a csapatmunka terén. A fejlesztési folyamat során megtanultuk, hogyan lehet hatékonyan együttműködni, és hogyan lehet kezelni a komplex technikai kihívásokat."
+
+9. DIA: ENGLISH SUMMARY - FATAL LOVE DATING APP
+
+"Good morning/afternoon, respected examination committee. Today we are presenting our project called Fatal Love, a modern dating application developed by our team. Our goal was to create a platform where users can find meaningful connections through an intuitive and secure interface.
+
+The application is built on a robust technical foundation. For the backend, we used Django REST Framework with JWT authentication, which provides a secure and scalable solution. The frontend is developed with React and styled with Tailwind CSS, ensuring a responsive and modern user interface across all devices.
+
+The core features of our application include user registration and profile management, a swipe-based matching system, and real-time messaging. The matching algorithm connects users based on mutual interest, while the WebSocket-based chat functionality enables instant communication between matched users.
+
+During the development process, we faced several challenges, particularly in implementing real-time features and ensuring a seamless user experience across different devices. Through effective teamwork and the application of modern web technologies, we successfully overcame these challenges and created a functional and user-friendly dating application.
+
+Future development plans include implementing location-based matching, adding video chat functionality, and expanding profile customization options. We believe these features will further enhance the user experience and make Fatal Love a competitive option in the dating application market."
+
+10. DIA: JÖVŐBELI TERVEK ÉS ÖSSZEGZÉS
+
+"A Fatal Love jelenlegi verziója már teljes értékű társkereső alkalmazás, de számos izgalmas fejlesztési tervet is megfogalmaztunk a jövőre nézve. Tervezzük a helyzet alapú párosítás bevezetését, amely lehetővé tenné a felhasználók számára, hogy a közelükben lévő potenciális partnereket találjanak. Emellett dolgozunk egy videó chat funkción is, amely még személyesebb kommunikációt tenne lehetővé a párosított felhasználók között.
+
+A profilbeállítások bővítése is a terveink között szerepel, amely lehetővé tenné a felhasználók számára, hogy még részletesebben bemutathassák magukat és preferenciáikat. Emellett tervezzük a mesterséges intelligencia integrálását a párosítási algoritmusba, amely javítaná a kompatibilitási javaslatokat.
+
+Összegzésként elmondhatjuk, hogy a Fatal Love társkereső alkalmazás fejlesztése során sikeresen ötvöztük a modern webtechnológiákat egy felhasználóbarát és biztonságos platformmá. A Django és React kombinációja robusztus alapot biztosított, míg a WebSocket és Redis technológiák lehetővé tették a valós idejű funkciók megvalósítását.
+
+Projektünk demonstrálja a csapatmunka erejét és a modern fejlesztési módszertanok hatékonyságát. Köszönjük a figyelmet, és szívesen válaszolunk kérdéseikre!"
+
+
+
+DEMÓ FORGATÓKÖNYV RÉSZLETES SZÖVEGE:
+
+1. Regisztráció bemutatása:
+
+"Most bemutatom a Fatal Love regisztrációs folyamatát. A főoldalon a 'Regisztráció' gombra kattintva megjelenik a regisztrációs űrlap. Itt meg kell adni a felhasználónevet, e-mail címet és jelszót. Figyeljék meg, hogy a rendszer valós időben ellenőrzi a jelszó erősségét, és visszajelzést ad a felhasználónak. A jelszónak tartalmaznia kell legalább 8 karaktert, nagybetűt, kisbetűt és számot.
+
+A regisztráció gombra kattintva a rendszer létrehozza a felhasználói fiókot, és automatikusan bejelentkezteti a felhasználót. Figyeljék meg, hogy a sikeres regisztráció után a felhasználó azonnal a profil kitöltési oldalra kerül, ahol folytathatja a regisztrációs folyamatot."
+
+2. Profil szerkesztése:
+
+"A regisztráció után a következő lépés a profil kitöltése. Itt a felhasználó megadhatja személyes adatait, feltölthet profilképet, és kiválaszthatja érdeklődési köreit. A bemutatkozás mezőben a felhasználó részletesen leírhatja magát, ami segít a potenciális partnereknek megismerni őt.
+
+Az érdeklődési körök kiválasztása fontos része a profilnak, mivel ezek alapján a rendszer relevánsabb javaslatokat tud tenni. A profilkép feltöltése egyszerű: a felhasználó kiválaszthatja a kívánt képet a készülékéről, és a rendszer automatikusan optimalizálja azt.
+
+A 'Mentés' gombra kattintva a rendszer elmenti a profil változtatásait, és a felhasználó láthatja a frissített profilt. Figyeljék meg, hogy a rendszer visszajelzést ad a sikeres mentésről."
+
+3. Párosítási rendszer működése:
+
+"Most bemutatom a Fatal Love párosítási rendszerét. A 'Párosítás' menüpontra kattintva a felhasználó eléri a swipe felületet, ahol más felhasználók profiljai jelennek meg. A felhasználó jobbra húzással (vagy a szív ikonra kattintással) jelezheti érdeklődését, balra húzással (vagy az X ikonra kattintással) pedig elutasíthatja a megjelenített profilt.
+
+Amikor két felhasználó kölcsönösen érdeklődést mutat egymás iránt, létrejön egy 'match'. Figyeljék meg, hogy a rendszer azonnal értesítést küld a felhasználónak az új match-ről. Az értesítésre kattintva a felhasználó közvetlenül a chat felületre kerül, ahol azonnal megkezdheti a beszélgetést az új partnerével."
+
+4. Chat funkció demonstrálása:
+
+"A Fatal Love egyik legfontosabb funkciója a valós idejű chat. A 'Üzenetek' menüpontra kattintva a felhasználó eléri a chat felületet, ahol láthatja az összes match-ét. Kiválasztva egy partnert, megnyílik a beszélgetés felület.
+
+Az üzenetküldés egyszerű: a felhasználó beírja az üzenetet a szövegmezőbe, és az Enter billentyűvel vagy a küldés gombra kattintva elküldi azt. Figyeljék meg, hogy az üzenet azonnal megjelenik a beszélgetésben, és a rendszer jelzi az üzenet állapotát: elküldve, kézbesítve vagy olvasva.
+
+A chat előzmények automatikusan betöltődnek, így a felhasználó bármikor visszanézheti a korábbi beszélgetéseket. Az új üzenetek érkezésekor a rendszer értesítést küld, még akkor is, ha a felhasználó az alkalmazás más részét használja."
+
+5. Reszponzív dizájn bemutatása:
+
+"Végezetül szeretném bemutatni a Fatal Love reszponzív dizájnját. Az alkalmazást úgy terveztük, hogy minden eszközön optimálisan használható legyen, legyen szó asztali számítógépről, tabletről vagy mobiltelefonról.
+
+Asztali nézetben a felhasználói felület kihasználja a nagyobb képernyőterületet, és több információt jelenít meg egyszerre. Mobil nézetben a felület automatikusan átrendeződik, hogy a kisebb képernyőn is könnyen használható legyen.
+
+Figyeljék meg, hogy minden funkció ugyanúgy működik mobil nézetben is: a regisztráció, a profilkezelés, a párosítás és a chat is teljesen funkcionális. Ez a reszponzív dizájn lehetővé teszi, hogy a felhasználók bármikor, bármilyen eszközről használhassák az alkalmazást."
+
+GYAKORI KÉRDÉSEKRE ADOTT RÉSZLETES VÁLASZOK:
+
+1. Miért választottuk a Django + React kombinációt?
+
+"A Django és React kombinációját azért választottuk, mert ez a párosítás egyesíti a Django robusztus backend képességeit a React modern és interaktív frontend lehetőségeivel. A Django kiváló ORM rendszere, beépített admin felülete és biztonsági funkciói ideálisak egy társkereső alkalmazás backend rendszeréhez. A React komponens alapú architektúrája pedig lehetővé teszi a dinamikus és reszponzív felhasználói felület kialakítását, ami elengedhetetlen egy modern webalkalmazás esetében. Ez a kombináció lehetővé tette számunkra, hogy gyorsan fejlesszünk, miközben fenntartjuk a kód minőségét és a teljesítményt."
+
+2. Hogyan biztosítjuk az adatok védelmét?
+
+"Az adatok védelmét több rétegű biztonsági rendszerrel biztosítjuk. A felhasználói jelszavakat a Django beépített hashelési mechanizmusával tároljuk, ami modern és biztonságos hash algoritmusokat használ. Az API hozzáférést JWT (JSON Web Token) autentikációval védjük, amely biztonságos és állapotmentes hitelesítést tesz lehetővé. A CORS (Cross-Origin Resource Sharing) beállításokkal szabályozzuk, hogy mely domainek férhetnek hozzá az API-hoz, megvédve az alkalmazást a cross-site scripting (XSS) és cross-site request forgery (CSRF) támadásoktól. Emellett a Django beépített védelmi mechanizmusai, mint például a SQL injection elleni védelem, tovább növelik az alkalmazás biztonságát."
+
+3. Hogyan kezeljük a nagy felhasználói terhelést?
+
+"A nagy felhasználói terhelés kezelésére több stratégiát is alkalmazunk. A backend oldalon a Django és a Django REST Framework hatékony cache mechanizmusokat kínál, amelyek csökkentik az adatbázis terhelését. A statikus fájlok kiszolgálását a WhiteNoise biztosítja, amely hatékony és egyszerű megoldást nyújt a produkciós környezetben. A valós idejű kommunikációt a Redis segítségével skálázzuk, amely lehetővé teszi a WebSocket kapcsolatok elosztását több szerverinstancia között. A frontend oldalon a React virtuális DOM-ja és optimalizált renderelési mechanizmusa biztosítja a gyors és hatékony felhasználói felületet még nagy adatmennyiség esetén is."
+
+4. Milyen skálázási lehetőségeket építettünk be?
+
+"Az alkalmazás architektúrája több skálázási lehetőséget is tartalmaz. A backend horizontálisan skálázható, ami azt jelenti, hogy több szerverinstancia futtatható párhuzamosan a terhelés elosztása érdekében. A Redis használata a WebSocket kommunikációban lehetővé teszi a valós idejű funkciók skálázását is. Az adatbázis szintén skálázható, a Django ORM támogatja a különböző adatbázis-motorokat és a replikációt. A frontend statikus fájljai CDN (Content Delivery Network) segítségével szolgálhatók ki, ami javítja a teljesítményt és csökkenti a szerverek terhelését. Ezek a megoldások együttesen biztosítják, hogy az alkalmazás képes legyen kezelni a növekvő felhasználói bázist és forgalmat."
+
+5. Milyen további fejlesztési tervek vannak?
+
+"Számos izgalmas fejlesztési tervet fogalmaztunk meg a Fatal Love jövőjére vonatkozóan. Tervezzük a helyzet alapú párosítás bevezetését, amely lehetővé tenné a felhasználók számára, hogy a közelükben lévő potenciális partnereket találjanak. Dolgozunk egy videó chat funkción is, amely még személyesebb kommunikációt tenne lehetővé a párosított felhasználók között. A profilbeállítások bővítése is a terveink között szerepel, amely lehetővé tenné a felhasználók számára, hogy még részletesebben bemutathassák magukat és preferenciáikat. Emellett tervezzük a mesterséges intelligencia integrálását a párosítási algoritmusba, amely javítaná a kompatibilitási javaslatokat. Hosszabb távon mobilalkalmazások fejlesztését is fontolgatjuk iOS és Android platformokra, amelyek natív élményt nyújtanának a felhasználóknak." 
