@@ -40,7 +40,7 @@ Fatal Love - Részletes Telepítési Útmutató Kezdőknek
    
    b) Projekt telepítése és indítása:
       - Töltsd le és csomagold ki a projektet
-      - Futtasd a fatal_love_installer.py fájlt (dupla klikk)
+      - Futtasd a fatal_love_installer-win.py fájlt (dupla klikk)
       - Válaszd az 1-es opciót a teljes telepítéshez
       - Várj, amíg a telepítés befejeződik
       - Ezután válaszd a 2-es opciót a szerver indításához
